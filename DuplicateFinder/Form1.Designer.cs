@@ -45,6 +45,8 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripCurrentStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.toolStripSpacer = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripLabelNumEntries = new System.Windows.Forms.ToolStripStatusLabel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -173,7 +175,9 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1,
-            this.toolStripCurrentStatus});
+            this.toolStripCurrentStatus,
+            this.toolStripSpacer,
+            this.toolStripLabelNumEntries});
             this.statusStrip1.Location = new System.Drawing.Point(0, 324);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(706, 22);
@@ -203,6 +207,18 @@
             this.groupBox1.TabIndex = 15;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Image Preview";
+            // 
+            // toolStripSpacer
+            // 
+            this.toolStripSpacer.Name = "toolStripSpacer";
+            this.toolStripSpacer.Size = new System.Drawing.Size(592, 17);
+            this.toolStripSpacer.Spring = true;
+            this.toolStripSpacer.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // toolStripLabelNumEntries
+            // 
+            this.toolStripLabelNumEntries.Name = "toolStripLabelNumEntries";
+            this.toolStripLabelNumEntries.Size = new System.Drawing.Size(0, 17);
             // 
             // Form1
             // 
@@ -254,6 +270,8 @@
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripSpacer;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripLabelNumEntries;
     }
 }
 

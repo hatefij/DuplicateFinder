@@ -35,6 +35,22 @@ namespace DuplicateFinder
             updateLabelThread = new UpdateLabelThread(this);
         }
 
+        #region Helper Functions
+
+        private void UpdateNumberOfNonUniqueHashes()
+        {
+            if (treeResults.Nodes.Count > 0)
+            {
+                toolStripLabelNumEntries.Text = "Number of non-unique hashes: " + treeResults.Nodes.Count;
+            }
+            else
+            {
+                toolStripLabelNumEntries.Text = string.Empty;
+            }
+        }
+
+        #endregion
+
         #region Button Events
 
         private void btnRootDir_Click(object sender, EventArgs e)
@@ -141,6 +157,8 @@ namespace DuplicateFinder
 
                                 pictureBox1.ImageLocation = string.Empty;
                             }
+
+                            UpdateNumberOfNonUniqueHashes();
                         }
                     }
                     else
@@ -244,6 +262,8 @@ namespace DuplicateFinder
                     treeResults.Nodes.Add(treeNode);
                 }
             }
+
+            UpdateNumberOfNonUniqueHashes();
         }
 
         #endregion
