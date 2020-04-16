@@ -5,6 +5,7 @@ using Microsoft.VisualBasic.FileIO;
 
 namespace DuplicateFinder
 {
+    //todo: add number of files scanned display. Add run time display
     public partial class Form1 : Form
     {
         #region Delegates
@@ -36,6 +37,13 @@ namespace DuplicateFinder
         }
 
         #region Helper Functions
+
+        private void ResetForm()
+        {
+            treeResults.Nodes.Clear();
+            UpdateNumberOfNonUniqueHashes();
+            pictureBox1.ImageLocation = string.Empty;
+        }
 
         private void UpdateNumberOfNonUniqueHashes()
         {
@@ -73,7 +81,7 @@ namespace DuplicateFinder
 
                 toolStripCurrentStatus.Text = "In Progress";
 
-                treeResults.Nodes.Clear();
+                ResetForm();
 
                 fileSearchThread.RootDirectory = txtRootDir.Text;
                 fileSearchThread.Active = true;
