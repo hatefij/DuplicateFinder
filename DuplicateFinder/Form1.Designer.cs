@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.btnRootDir = new System.Windows.Forms.Button();
             this.txtRootDir = new System.Windows.Forms.TextBox();
@@ -44,9 +46,11 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripCurrentStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.toolStripSpacer = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripLabelNumEntries = new System.Windows.Forms.ToolStripStatusLabel();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.toolStripRunTime = new System.Windows.Forms.ToolStripStatusLabel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -177,7 +181,8 @@
             this.toolStripStatusLabel1,
             this.toolStripCurrentStatus,
             this.toolStripSpacer,
-            this.toolStripLabelNumEntries});
+            this.toolStripLabelNumEntries,
+            this.toolStripRunTime});
             this.statusStrip1.Location = new System.Drawing.Point(0, 324);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(706, 22);
@@ -198,16 +203,6 @@
             this.toolStripCurrentStatus.Size = new System.Drawing.Size(26, 17);
             this.toolStripCurrentStatus.Text = "Idle";
             // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.pictureBox1);
-            this.groupBox1.Location = new System.Drawing.Point(476, 59);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(216, 262);
-            this.groupBox1.TabIndex = 15;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Image Preview";
-            // 
             // toolStripSpacer
             // 
             this.toolStripSpacer.Name = "toolStripSpacer";
@@ -219,6 +214,26 @@
             // 
             this.toolStripLabelNumEntries.Name = "toolStripLabelNumEntries";
             this.toolStripLabelNumEntries.Size = new System.Drawing.Size(0, 17);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.pictureBox1);
+            this.groupBox1.Location = new System.Drawing.Point(476, 59);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(216, 262);
+            this.groupBox1.TabIndex = 15;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Image Preview";
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 1000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // toolStripRunTime
+            // 
+            this.toolStripRunTime.Name = "toolStripRunTime";
+            this.toolStripRunTime.Size = new System.Drawing.Size(0, 17);
             // 
             // Form1
             // 
@@ -236,6 +251,7 @@
             this.Controls.Add(this.btnRootDir);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
             this.Name = "Form1";
@@ -272,6 +288,8 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripSpacer;
         private System.Windows.Forms.ToolStripStatusLabel toolStripLabelNumEntries;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripRunTime;
     }
 }
 

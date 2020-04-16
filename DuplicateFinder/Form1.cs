@@ -5,7 +5,7 @@ using Microsoft.VisualBasic.FileIO;
 
 namespace DuplicateFinder
 {
-    //todo: add number of files scanned display. Add run time display
+    //todo: add number of files scanned display
     public partial class Form1 : Form
     {
         #region Delegates
@@ -25,9 +25,13 @@ namespace DuplicateFinder
 
         #endregion
 
+        private int runTime;
+
         public Form1()
         {
             InitializeComponent();
+
+            runTime = 0;
 
             updateStatusLabelDelegate = new UpdateStatusLabel(UpdateLabel);
             resetStatusLabelDelegate = new ResetStatusLabel(LabelReset);
@@ -100,6 +104,9 @@ namespace DuplicateFinder
                 };
 
                 labelUpdateThread.Start(updateLabelThread);
+
+                runTime = 0;
+                timer1.Start();
             }
         }
 
@@ -107,6 +114,9 @@ namespace DuplicateFinder
         {
             updateLabelThread.Active = false;
             fileSearchThread.Active = false;
+
+            timer1.Stop();
+            toolStripRunTime.Text = string.Empty;
 
             btnRootDir.Enabled = true;
             btnSearch.Enabled = true;
@@ -256,6 +266,8 @@ namespace DuplicateFinder
             btnSearch.Enabled = true;
             btnStopSearch.Enabled = false;
 
+            timer1.Stop();
+
             foreach (var hashKeyValue in fileSearchThread.HashedFiles)
             {
                 if (hashKeyValue.Value.Count > 1)
@@ -289,5 +301,14 @@ namespace DuplicateFinder
         }
 
         #endregion
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            runTime++;
+
+            TimeSpan timeSpan = TimeSpan.FromSeconds(runTime);
+
+            toolStripRunTime.Text = string.Format("Runtime: {0:d2}:{1:d2}:{2:d2}", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
+        }
     }
 }
