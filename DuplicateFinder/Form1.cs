@@ -51,6 +51,8 @@ namespace DuplicateFinder
         {
             InitializeComponent();
 
+            axWindowsMediaPlayer1.settings.mute = true;
+
             updateStatusLabelDelegate = new UpdateStatusLabel(UpdateLabel);
             resetStatusLabelDelegate = new ResetStatusLabel(LabelReset);
 
