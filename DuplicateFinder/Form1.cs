@@ -6,6 +6,7 @@ using Microsoft.VisualBasic.FileIO;
 namespace DuplicateFinder
 {
     //todo: add number of files scanned display
+    //todo: add progress bar to population of result treeview
     public partial class Form1 : Form
     {
         #region Delegates
@@ -25,7 +26,11 @@ namespace DuplicateFinder
 
         #endregion
 
+        #region Private Members
+
         private int runTime;
+
+        #endregion
 
         public Form1()
         {
@@ -231,6 +236,19 @@ namespace DuplicateFinder
 
         #endregion
 
+        #region Timer Events
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            runTime++;
+
+            TimeSpan timeSpan = TimeSpan.FromSeconds(runTime);
+
+            toolStripRunTime.Text = string.Format("Runtime: {0:d2}:{1:d2}:{2:d2}", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
+        }
+
+        #endregion
+
         #region Thread Functions
 
         protected void SearchThread(object obj)
@@ -301,14 +319,5 @@ namespace DuplicateFinder
         }
 
         #endregion
-
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            runTime++;
-
-            TimeSpan timeSpan = TimeSpan.FromSeconds(runTime);
-
-            toolStripRunTime.Text = string.Format("Runtime: {0:d2}:{1:d2}:{2:d2}", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
-        }
     }
 }
