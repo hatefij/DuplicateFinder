@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using Microsoft.VisualBasic.FileIO;
@@ -29,19 +30,34 @@ namespace DuplicateFinder
 
         private int runTime;
 
+        string[] pictureBoxFileExtensions = new string[]
+        {
+            ".gif", ".jpg", ".jpeg", ".bmp", ".wmf", ".png"
+        };
+
+        string[] mediaPlayerFileExtensions = new string[]
+        {
+            ".wmv", ".mpg", ".mpeg", ".mp4", ".avi"
+        };
+
+        string[] browserFileExtensions = new string[]
+        {
+            ".pdf", ".doc", ".docx"
+        };
+
         #endregion
 
         public Form1()
         {
             InitializeComponent();
 
-            runTime = 0;
-
             updateStatusLabelDelegate = new UpdateStatusLabel(UpdateLabel);
             resetStatusLabelDelegate = new ResetStatusLabel(LabelReset);
 
             fileSearchThread = new FileSearchThread();
             updateLabelThread = new UpdateLabelThread(this);
+
+            ResetPreviewWindows();
         }
 
         #region Helper Functions
@@ -83,6 +99,17 @@ namespace DuplicateFinder
             TimeSpan timeSpan = TimeSpan.FromSeconds(runTime);
 
             toolStripRunTime.Text = string.Format("Runtime: {0:d2}:{1:d2}:{2:d2}", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
+        }
+
+        private void ResetPreviewWindows()
+        {
+            pictureBox1.Visible = false;
+            axWindowsMediaPlayer1.Visible = false;
+            webBrowser1.Visible = false;
+
+            pictureBox1.ImageLocation = string.Empty;
+            axWindowsMediaPlayer1.URL = string.Empty;
+            webBrowser1.Navigate(string.Empty);
         }
 
         #endregion
@@ -233,22 +260,24 @@ namespace DuplicateFinder
 
         private void treeResults_AfterSelect(object sender, TreeViewEventArgs e)
         {
+            ResetPreviewWindows();
+
             if (e.Node.IsSelected) // sanity test
             {
-                // compatible file types: *.gif, *.jpg, *.jpeg, *.bmp, *.wmf, *.png
-                if ((e.Node.Text.EndsWith(".gif", StringComparison.OrdinalIgnoreCase)) || 
-                    (e.Node.Text.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase)) || 
-                    (e.Node.Text.EndsWith(".jpeg", StringComparison.OrdinalIgnoreCase)) || 
-                    (e.Node.Text.EndsWith(".bmp", StringComparison.OrdinalIgnoreCase)) || 
-                    (e.Node.Text.EndsWith(".wmf", StringComparison.OrdinalIgnoreCase)) || 
-                    (e.Node.Text.EndsWith(".png", StringComparison.OrdinalIgnoreCase)))
+                if (pictureBoxFileExtensions.Any(extension => e.Node.Text.EndsWith(extension, StringComparison.OrdinalIgnoreCase)))
                 {
+                    pictureBox1.Visible = true;
                     pictureBox1.ImageLocation = e.Node.Text;
                 }
-                else
+                else if (mediaPlayerFileExtensions.Any(extension => e.Node.Text.EndsWith(extension, StringComparison.OrdinalIgnoreCase)))
                 {
-                    // clear the picture box
-                    pictureBox1.ImageLocation = string.Empty;
+                    axWindowsMediaPlayer1.Visible = true;
+                    axWindowsMediaPlayer1.URL = e.Node.Text;
+                }
+                else if (browserFileExtensions.Any(extension => e.Node.Text.EndsWith(extension, StringComparison.OrdinalIgnoreCase)))
+                {
+                    webBrowser1.Visible = true;
+                    webBrowser1.Navigate(e.Node.Text);
                 }
             }
         }

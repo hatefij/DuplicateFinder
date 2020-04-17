@@ -49,13 +49,16 @@
             this.toolStripSpacer = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripLabelNumEntries = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripRunTime = new System.Windows.Forms.ToolStripStatusLabel();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.toolStripNumberOfFiles = new System.Windows.Forms.ToolStripStatusLabel();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.axWindowsMediaPlayer1 = new AxWMPLib.AxWindowsMediaPlayer();
+            this.webBrowser1 = new System.Windows.Forms.WebBrowser();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.axWindowsMediaPlayer1)).BeginInit();
             this.SuspendLayout();
             // 
             // folderBrowserDialog1
@@ -115,7 +118,7 @@
             // 
             this.treeResults.Location = new System.Drawing.Point(15, 59);
             this.treeResults.Name = "treeResults";
-            this.treeResults.Size = new System.Drawing.Size(454, 262);
+            this.treeResults.Size = new System.Drawing.Size(454, 374);
             this.treeResults.TabIndex = 9;
             this.treeResults.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeResults_AfterSelect);
             this.treeResults.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeResults_NodeMouseDoubleClick);
@@ -126,7 +129,7 @@
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox1.Location = new System.Drawing.Point(6, 19);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(204, 237);
+            this.pictureBox1.Size = new System.Drawing.Size(421, 349);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 11;
             this.pictureBox1.TabStop = false;
@@ -150,7 +153,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(706, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(917, 24);
             this.menuStrip1.TabIndex = 13;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -185,9 +188,9 @@
             this.toolStripLabelNumEntries,
             this.toolStripRunTime,
             this.toolStripNumberOfFiles});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 324);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 436);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(706, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(917, 22);
             this.statusStrip1.SizingGrip = false;
             this.statusStrip1.Stretch = false;
             this.statusStrip1.TabIndex = 14;
@@ -208,7 +211,7 @@
             // toolStripSpacer
             // 
             this.toolStripSpacer.Name = "toolStripSpacer";
-            this.toolStripSpacer.Size = new System.Drawing.Size(592, 17);
+            this.toolStripSpacer.Size = new System.Drawing.Size(834, 17);
             this.toolStripSpacer.Spring = true;
             this.toolStripSpacer.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -222,31 +225,50 @@
             this.toolStripRunTime.Name = "toolStripRunTime";
             this.toolStripRunTime.Size = new System.Drawing.Size(0, 17);
             // 
+            // toolStripNumberOfFiles
+            // 
+            this.toolStripNumberOfFiles.Name = "toolStripNumberOfFiles";
+            this.toolStripNumberOfFiles.Size = new System.Drawing.Size(0, 17);
+            // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.axWindowsMediaPlayer1);
+            this.groupBox1.Controls.Add(this.webBrowser1);
             this.groupBox1.Controls.Add(this.pictureBox1);
             this.groupBox1.Location = new System.Drawing.Point(476, 59);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(216, 262);
+            this.groupBox1.Size = new System.Drawing.Size(434, 374);
             this.groupBox1.TabIndex = 15;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Image Preview";
+            this.groupBox1.Text = "Preview";
+            // 
+            // axWindowsMediaPlayer1
+            // 
+            this.axWindowsMediaPlayer1.Enabled = true;
+            this.axWindowsMediaPlayer1.Location = new System.Drawing.Point(6, 19);
+            this.axWindowsMediaPlayer1.Name = "axWindowsMediaPlayer1";
+            this.axWindowsMediaPlayer1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axWindowsMediaPlayer1.OcxState")));
+            this.axWindowsMediaPlayer1.Size = new System.Drawing.Size(421, 349);
+            this.axWindowsMediaPlayer1.TabIndex = 12;
+            // 
+            // webBrowser1
+            // 
+            this.webBrowser1.Location = new System.Drawing.Point(6, 19);
+            this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
+            this.webBrowser1.Name = "webBrowser1";
+            this.webBrowser1.Size = new System.Drawing.Size(421, 349);
+            this.webBrowser1.TabIndex = 16;
             // 
             // timer1
             // 
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // toolStripNumberOfFiles
-            // 
-            this.toolStripNumberOfFiles.Name = "toolStripNumberOfFiles";
-            this.toolStripNumberOfFiles.Size = new System.Drawing.Size(0, 17);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(706, 346);
+            this.ClientSize = new System.Drawing.Size(917, 458);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.chkBxRecycle);
@@ -269,6 +291,7 @@
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.axWindowsMediaPlayer1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -298,6 +321,8 @@
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripRunTime;
         private System.Windows.Forms.ToolStripStatusLabel toolStripNumberOfFiles;
+        private AxWMPLib.AxWindowsMediaPlayer axWindowsMediaPlayer1;
+        private System.Windows.Forms.WebBrowser webBrowser1;
     }
 }
 
