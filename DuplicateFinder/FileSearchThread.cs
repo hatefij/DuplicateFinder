@@ -10,6 +10,7 @@ namespace DuplicateFinder
 
         public string RootDirectory { get; set; }
         public string CurrentFile { get; private set; }
+        public double NumberOfFiles { get; private set; }
         public bool Active { get; set; }
 
         public FileSearchThread()
@@ -34,6 +35,8 @@ namespace DuplicateFinder
         public void ResetDictionary()
         {
             HashedFiles.Clear();
+
+            NumberOfFiles = 0;
         }
 
         public void RecursiveSearch()
@@ -56,6 +59,7 @@ namespace DuplicateFinder
             {
                 if (Active)
                 {
+                    NumberOfFiles++;
                     CurrentFile = localFile;
                     var fileObject = new cFiles(localFile, dir);
                     SHA256 sha256 = SHA256.Create();

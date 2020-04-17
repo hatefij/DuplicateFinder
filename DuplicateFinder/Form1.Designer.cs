@@ -48,9 +48,10 @@
             this.toolStripCurrentStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripSpacer = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripLabelNumEntries = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripRunTime = new System.Windows.Forms.ToolStripStatusLabel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.toolStripRunTime = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripNumberOfFiles = new System.Windows.Forms.ToolStripStatusLabel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -182,7 +183,8 @@
             this.toolStripCurrentStatus,
             this.toolStripSpacer,
             this.toolStripLabelNumEntries,
-            this.toolStripRunTime});
+            this.toolStripRunTime,
+            this.toolStripNumberOfFiles});
             this.statusStrip1.Location = new System.Drawing.Point(0, 324);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(706, 22);
@@ -215,6 +217,11 @@
             this.toolStripLabelNumEntries.Name = "toolStripLabelNumEntries";
             this.toolStripLabelNumEntries.Size = new System.Drawing.Size(0, 17);
             // 
+            // toolStripRunTime
+            // 
+            this.toolStripRunTime.Name = "toolStripRunTime";
+            this.toolStripRunTime.Size = new System.Drawing.Size(0, 17);
+            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.pictureBox1);
@@ -230,10 +237,10 @@
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // toolStripRunTime
+            // toolStripNumberOfFiles
             // 
-            this.toolStripRunTime.Name = "toolStripRunTime";
-            this.toolStripRunTime.Size = new System.Drawing.Size(0, 17);
+            this.toolStripNumberOfFiles.Name = "toolStripNumberOfFiles";
+            this.toolStripNumberOfFiles.Size = new System.Drawing.Size(0, 17);
             // 
             // Form1
             // 
@@ -290,6 +297,7 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripLabelNumEntries;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripRunTime;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripNumberOfFiles;
     }
 }
 
