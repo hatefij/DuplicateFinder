@@ -254,6 +254,7 @@
             // webBrowser1
             // 
             this.webBrowser1.Location = new System.Drawing.Point(6, 19);
+            this.webBrowser1.MaximumSize = new System.Drawing.Size(421, 349);
             this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser1.Name = "webBrowser1";
             this.webBrowser1.Size = new System.Drawing.Size(421, 349);

@@ -111,7 +111,7 @@ namespace DuplicateFinder
 
             pictureBox1.ImageLocation = string.Empty;
             axWindowsMediaPlayer1.URL = string.Empty;
-            webBrowser1.Navigate(string.Empty);
+            webBrowser1.Navigate("about:blank");
         }
 
         #endregion
@@ -209,6 +209,8 @@ namespace DuplicateFinder
                     {
                         if (MessageBox.Show("Are You Sure?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
                         {
+                            ResetPreviewWindows();
+
                             RecycleOption recycleOption = RecycleOption.SendToRecycleBin;
 
                             if (!chkBxRecycle.Checked)
@@ -225,8 +227,6 @@ namespace DuplicateFinder
                             if (parentNode.Nodes.Count < 2)
                             {
                                 parentNode.Remove();
-
-                                pictureBox1.ImageLocation = string.Empty;
                             }
 
                             UpdateNumberOfNonUniqueHashes();
@@ -234,7 +234,7 @@ namespace DuplicateFinder
                     }
                     else
                     {
-                        pictureBox1.ImageLocation = string.Empty;
+                        ResetPreviewWindows();
                     }
                 }
                 else if (e.KeyCode == Keys.Enter)
