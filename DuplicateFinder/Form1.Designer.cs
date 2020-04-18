@@ -54,6 +54,7 @@
             this.axWindowsMediaPlayer1 = new AxWMPLib.AxWindowsMediaPlayer();
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.btnDelete = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -139,7 +140,7 @@
             this.chkBxRecycle.AutoSize = true;
             this.chkBxRecycle.Checked = true;
             this.chkBxRecycle.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkBxRecycle.Location = new System.Drawing.Point(609, 34);
+            this.chkBxRecycle.Location = new System.Drawing.Point(706, 34);
             this.chkBxRecycle.Name = "chkBxRecycle";
             this.chkBxRecycle.Size = new System.Drawing.Size(83, 17);
             this.chkBxRecycle.TabIndex = 12;
@@ -265,11 +266,23 @@
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // btnDelete
+            // 
+            this.btnDelete.Enabled = false;
+            this.btnDelete.Location = new System.Drawing.Point(608, 30);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(92, 23);
+            this.btnDelete.TabIndex = 16;
+            this.btnDelete.Text = "Delete";
+            this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(917, 458);
+            this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.chkBxRecycle);
@@ -324,6 +337,7 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripNumberOfFiles;
         private AxWMPLib.AxWindowsMediaPlayer axWindowsMediaPlayer1;
         private System.Windows.Forms.WebBrowser webBrowser1;
+        private System.Windows.Forms.Button btnDelete;
     }
 }
 

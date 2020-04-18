@@ -114,6 +114,41 @@ namespace DuplicateFinder
             webBrowser1.Navigate("about:blank");
         }
 
+        private void DeleteSelection(TreeView treeView)
+        {
+            if (treeView.SelectedNode.Text.Contains("."))
+            {
+                if (MessageBox.Show("Are You Sure?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    ResetPreviewWindows();
+
+                    RecycleOption recycleOption = RecycleOption.SendToRecycleBin;
+
+                    if (!chkBxRecycle.Checked)
+                    {
+                        recycleOption = RecycleOption.DeletePermanently;
+                    }
+
+                    FileSystem.DeleteFile(treeView.SelectedNode.Text, UIOption.OnlyErrorDialogs, recycleOption);
+
+                    TreeNode parentNode = treeView.SelectedNode.Parent;
+
+                    treeView.SelectedNode.Remove();
+
+                    if (parentNode.Nodes.Count < 2)
+                    {
+                        parentNode.Remove();
+                    }
+
+                    UpdateNumberOfNonUniqueHashes();
+                }
+            }
+            else
+            {
+                ResetPreviewWindows();
+            }
+        }
+
         #endregion
 
         #region Button Events
@@ -135,6 +170,7 @@ namespace DuplicateFinder
                 btnRootDir.Enabled = false;
                 btnSearch.Enabled = false;
                 btnStopSearch.Enabled = true;
+                btnDelete.Enabled = false;
 
                 toolStripCurrentStatus.Text = "In Progress";
 
@@ -176,6 +212,11 @@ namespace DuplicateFinder
             btnStopSearch.Enabled = false;
         }
 
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            DeleteSelection(treeResults);
+        }
+
         #endregion
 
         #region TreeView Events
@@ -205,37 +246,7 @@ namespace DuplicateFinder
             {
                 if (e.KeyCode == Keys.Delete)
                 {
-                    if (treeView.SelectedNode.Text.Contains("."))
-                    {
-                        if (MessageBox.Show("Are You Sure?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                        {
-                            ResetPreviewWindows();
-
-                            RecycleOption recycleOption = RecycleOption.SendToRecycleBin;
-
-                            if (!chkBxRecycle.Checked)
-                            {
-                                recycleOption = RecycleOption.DeletePermanently;
-                            }
-
-                            FileSystem.DeleteFile(treeView.SelectedNode.Text, UIOption.OnlyErrorDialogs, recycleOption);
-
-                            TreeNode parentNode = treeView.SelectedNode.Parent;
-
-                            treeView.SelectedNode.Remove();
-
-                            if (parentNode.Nodes.Count < 2)
-                            {
-                                parentNode.Remove();
-                            }
-
-                            UpdateNumberOfNonUniqueHashes();
-                        }
-                    }
-                    else
-                    {
-                        ResetPreviewWindows();
-                    }
+                    DeleteSelection(treeView);
                 }
                 else if (e.KeyCode == Keys.Enter)
                 {
@@ -266,6 +277,15 @@ namespace DuplicateFinder
 
             if (e.Node.IsSelected) // sanity test
             {
+                if (e.Node.Text.Contains("."))
+                {
+                    btnDelete.Enabled = true;
+                }
+                else
+                {
+                    btnDelete.Enabled = false;
+                }
+
                 if (pictureBoxFileExtensions.Any(extension => e.Node.Text.EndsWith(extension, StringComparison.OrdinalIgnoreCase)))
                 {
                     pictureBox1.Visible = true;
