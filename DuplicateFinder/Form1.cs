@@ -6,7 +6,9 @@ using Microsoft.VisualBasic.FileIO;
 
 namespace DuplicateFinder
 {
-    //todo: add progress bar to population of result treeview
+    // todo: finish form icon
+    // todo: add progress bar to population of result treeview
+    // todo: add treeview right-click ability to expand/contract all nodes
     public partial class Form1 : Form
     {
         #region Delegates
@@ -35,9 +37,27 @@ namespace DuplicateFinder
             ".gif", ".jpg", ".jpeg", ".bmp", ".wmf", ".png"
         };
 
-        string[] mediaPlayerFileExtensions = new string[]
+        string[] mediaPlayerFileExtensions = new string[] // list of file extensions provided at: https://support.microsoft.com/en-us/help/316992/file-types-supported-by-windows-media-player
         {
-            ".wmv", ".mpg", ".mpeg", ".mp4", ".avi"
+            ".asf", ".wma", ".wmv", ".wm", // Windows Media formats
+            ".asx", ".wax", ".wvx", ".wmx", ".wpl", // Windows Media Metafiles
+            ".dvr-ms", // Microsoft Digital Video Recording
+            ".wmd", // Windows Media Download Package
+            ".avi", // Audio Visual Interleave
+            ".mpg", ".mpeg", ".m1v", ".mp2", ".mp3", ".mpa", ".mpe", ".m3u", // Moving Pictures Experts Group
+            ".mid", ".midi", ".rmi", // Musical Instrument Digital Interface
+            ".aif", ".aifc", ".aiff", // Audio Interchange File Format
+            ".au", ".snd", // Sun Microsystems and NeXT
+            ".wav", // Audio for Windows
+            ".cda", // CD Audio Track
+            ".ivf", // Indeo Video Technology
+            ".wmz", ".wms", // Windows Media Player Skins
+            ".mov", // QuickTime Movie file
+            ".m4a", // MP4 Audio file
+            ".mp4", ".m4v", ".mp4v", ".3g2", ".3gp2", ".3gp", ".3gpp", // MP4 Video file
+            ".aac", ".adt", ".adts",  // Windows audio file
+            ".m2ts", // MPEG-2 TS Video file
+            ".flac" // Free Lossless Audio Codec
         };
 
         string[] browserFileExtensions = new string[]
