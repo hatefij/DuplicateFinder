@@ -8,6 +8,7 @@ namespace DuplicateFinder
 {
     // todo: finish form icon
     // todo: add progress bar to population of result treeview
+    // todo: add progress bar for node expansion / collapse
     public partial class Form1 : Form
     {
         #region Delegates
@@ -327,7 +328,17 @@ namespace DuplicateFinder
         {
             if (e.Button == MouseButtons.Right)
             {
-                contextMenuTreeView.Show(treeResults, e.Location);
+                if (treeResults.SelectedNode != null)
+                {
+                    if (treeResults.SelectedNode.Text.Contains("."))
+                    {
+                        contextMenuTreeNodeFile.Show(treeResults, e.Location);
+                    }
+                    else
+                    {
+                        contextMenuTreeView.Show(treeResults, e.Location);
+                    }
+                }
             }
         }
 
@@ -437,6 +448,15 @@ namespace DuplicateFinder
 
                 treeNode.Collapse();
             }
+        }
+
+        #endregion
+
+        #region Treeview File Node Context Menu
+
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DeleteSelection(treeResults);
         }
 
         #endregion
