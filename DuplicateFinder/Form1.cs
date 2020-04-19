@@ -8,7 +8,6 @@ namespace DuplicateFinder
 {
     // todo: finish form icon
     // todo: add progress bar to population of result treeview
-    // todo: add treeview right-click ability to expand/contract all nodes
     public partial class Form1 : Form
     {
         #region Delegates
@@ -82,7 +81,7 @@ namespace DuplicateFinder
             ResetPreviewWindows();
         }
 
-        #region Helper Functions
+        #region Private Methods
 
         private void ResetForm()
         {
@@ -324,6 +323,14 @@ namespace DuplicateFinder
             }
         }
 
+        private void treeResults_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                contextMenuTreeView.Show(treeResults, e.Location);
+            }
+        }
+
         #endregion
 
         #region Timer Events
@@ -406,6 +413,30 @@ namespace DuplicateFinder
         private void helpToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Use Delete button to delete selected file.\nUse Enter to open currently selected file with its default application.\nDouble-click a file to also open it with the default application.", "Help", MessageBoxButtons.OK);
+        }
+
+        #endregion
+
+        #region Treeview Context Menu
+
+        private void expandAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach (var rootNode in treeResults.Nodes)
+            {
+                TreeNode treeNode = rootNode as TreeNode;
+
+                treeNode.Expand();
+            }
+        }
+
+        private void collapseAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach (var rootNode in treeResults.Nodes)
+            {
+                TreeNode treeNode = rootNode as TreeNode;
+
+                treeNode.Collapse();
+            }
         }
 
         #endregion
