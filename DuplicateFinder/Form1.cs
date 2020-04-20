@@ -6,7 +6,6 @@ using Microsoft.VisualBasic.FileIO;
 
 namespace DuplicateFinder
 {
-    // todo: finish form icon
     public partial class Form1 : Form
     {
         #region Delegates
