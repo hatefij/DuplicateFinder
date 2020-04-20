@@ -7,8 +7,6 @@ using Microsoft.VisualBasic.FileIO;
 namespace DuplicateFinder
 {
     // todo: finish form icon
-    // todo: add progress bar to population of result treeview
-    // todo: add progress bar for node expansion / collapse
     public partial class Form1 : Form
     {
         #region Delegates
@@ -393,8 +391,16 @@ namespace DuplicateFinder
 
             timer1.Stop();
 
+            progressBarResultsTree.Minimum = 0;
+            progressBarResultsTree.Value = 0;
+            progressBarResultsTree.Step = 1;
+            progressBarResultsTree.Maximum = fileSearchThread.HashedFiles.Count;
+            progressBarResultsTree.Visible = true;
+
             foreach (var hashKeyValue in fileSearchThread.HashedFiles)
             {
+                progressBarResultsTree.PerformStep();
+
                 if (hashKeyValue.Value.Count > 1)
                 {
                     TreeNode treeNode = new TreeNode(hashKeyValue.Key);
@@ -407,6 +413,8 @@ namespace DuplicateFinder
                     treeResults.Nodes.Add(treeNode);
                 }
             }
+
+            progressBarResultsTree.Visible = false;
 
             UpdateNumberOfNonUniqueHashes();
             DisplayNumberOfTotalFiles();
@@ -432,22 +440,42 @@ namespace DuplicateFinder
 
         private void expandAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            progressBarResultsTree.Minimum = 0;
+            progressBarResultsTree.Value = 0;
+            progressBarResultsTree.Step = 1;
+            progressBarResultsTree.Maximum = treeResults.Nodes.Count;
+            progressBarResultsTree.Visible = true;
+
             foreach (var rootNode in treeResults.Nodes)
             {
                 TreeNode treeNode = rootNode as TreeNode;
 
                 treeNode.Expand();
+
+                progressBarResultsTree.PerformStep();
             }
+
+            progressBarResultsTree.Visible = false;
         }
 
         private void collapseAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            progressBarResultsTree.Minimum = 0;
+            progressBarResultsTree.Value = 0;
+            progressBarResultsTree.Step = 1;
+            progressBarResultsTree.Maximum = treeResults.Nodes.Count;
+            progressBarResultsTree.Visible = true;
+
             foreach (var rootNode in treeResults.Nodes)
             {
                 TreeNode treeNode = rootNode as TreeNode;
 
                 treeNode.Collapse();
+
+                progressBarResultsTree.PerformStep();
             }
+
+            progressBarResultsTree.Visible = false;
         }
 
         #endregion

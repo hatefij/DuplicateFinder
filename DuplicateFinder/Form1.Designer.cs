@@ -60,6 +60,7 @@
             this.collapseAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuTreeNodeFile = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.progressBarResultsTree = new System.Windows.Forms.ProgressBar();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -321,11 +322,20 @@
             this.deleteToolStripMenuItem.Text = "Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
+            // progressBarResultsTree
+            // 
+            this.progressBarResultsTree.Location = new System.Drawing.Point(191, 235);
+            this.progressBarResultsTree.Name = "progressBarResultsTree";
+            this.progressBarResultsTree.Size = new System.Drawing.Size(100, 23);
+            this.progressBarResultsTree.TabIndex = 17;
+            this.progressBarResultsTree.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(917, 458);
+            this.Controls.Add(this.progressBarResultsTree);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.statusStrip1);
@@ -389,6 +399,7 @@
         private System.Windows.Forms.ToolStripMenuItem collapseAllToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip contextMenuTreeNodeFile;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
+        private System.Windows.Forms.ProgressBar progressBarResultsTree;
     }
 }
 
