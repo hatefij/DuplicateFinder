@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
 
@@ -53,45 +54,52 @@ namespace DuplicateFinder
 
         public void RecursiveSearch(string dir)
         {
-            var localFiles = Directory.GetFiles(dir);
-
-            foreach (var localFile in localFiles)
+            try
             {
-                if (Active)
-                {
-                    NumberOfFiles++;
-                    CurrentFile = localFile;
-                    var fileObject = new cFiles(localFile, dir);
-                    SHA256 sha256 = SHA256.Create();
-                    var fileHash = ByteToString(sha256.ComputeHash(File.OpenRead(localFile)));
+                var localFiles = Directory.GetFiles(dir);
 
-                    if (HashedFiles.ContainsKey(fileHash))
+                foreach (var localFile in localFiles)
+                {
+                    if (Active)
                     {
-                        var list = HashedFiles[fileHash];
-                        list.Add(fileObject);
-                        HashedFiles[fileHash] = list;
+                        NumberOfFiles++;
+                        CurrentFile = localFile;
+                        var fileObject = new cFiles(localFile, dir);
+                        SHA256 sha256 = SHA256.Create();
+                        var fileHash = ByteToString(sha256.ComputeHash(File.OpenRead(localFile)));
+
+                        if (HashedFiles.ContainsKey(fileHash))
+                        {
+                            var list = HashedFiles[fileHash];
+                            list.Add(fileObject);
+                            HashedFiles[fileHash] = list;
+                        }
+                        else
+                        {
+                            var firstFile = new List<cFiles>();
+                            firstFile.Add(fileObject);
+                            HashedFiles.Add(fileHash, firstFile);
+                        }
                     }
                     else
                     {
-                        var firstFile = new List<cFiles>();
-                        firstFile.Add(fileObject);
-                        HashedFiles.Add(fileHash, firstFile);
+                        break;
                     }
                 }
-                else
+
+                if (Active)
                 {
-                    break;
+                    var localDirectories = Directory.GetDirectories(dir);
+
+                    foreach (var localDirectory in localDirectories)
+                    {
+                        RecursiveSearch(localDirectory);
+                    }
                 }
             }
-
-            if (Active)
+            catch (UnauthorizedAccessException)
             {
-                var localDirectories = Directory.GetDirectories(dir);
 
-                foreach (var localDirectory in localDirectories)
-                {
-                    RecursiveSearch(localDirectory);
-                }
             }
         }
     }
