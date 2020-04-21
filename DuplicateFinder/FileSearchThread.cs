@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
+using System.Windows.Forms;
 
 namespace DuplicateFinder
 {
@@ -60,34 +61,46 @@ namespace DuplicateFinder
 
                 foreach (var localFile in localFiles)
                 {
-                    if (Active)
+                    CurrentFile = localFile;
+
+                    if (File.Exists(CurrentFile)) // sanity check
                     {
                         NumberOfFiles++;
-                        CurrentFile = localFile;
                         var fileObject = new cFiles(localFile, dir);
                         SHA256 sha256 = SHA256.Create();
                         var fileHash = ByteToString(sha256.ComputeHash(File.OpenRead(localFile)));
 
-                        if (HashedFiles.ContainsKey(fileHash))
+                        if (Active) // continue if the thread should remain active
                         {
-                            var list = HashedFiles[fileHash];
-                            list.Add(fileObject);
-                            HashedFiles[fileHash] = list;
+                            if (HashedFiles.ContainsKey(fileHash))
+                            {
+                                var list = HashedFiles[fileHash];
+                                list.Add(fileObject);
+
+                                try // prevent crash in the case where the primary thread has stopped and cleared the dictionary before the current thread has stopped
+                                {
+                                    HashedFiles[fileHash] = list;
+                                }
+                                catch (Exception)
+                                {
+                                    MessageBox.Show("Error adding new file to existing file hash. Another thread may have cleared the dictionary.");
+                                }
+                            }
+                            else
+                            {
+                                var firstFile = new List<cFiles>();
+                                firstFile.Add(fileObject);
+                                HashedFiles.Add(fileHash, firstFile);
+                            }
                         }
                         else
                         {
-                            var firstFile = new List<cFiles>();
-                            firstFile.Add(fileObject);
-                            HashedFiles.Add(fileHash, firstFile);
+                            break;
                         }
-                    }
-                    else
-                    {
-                        break;
                     }
                 }
 
-                if (Active)
+                if (Active) // continue if the thread should remain active
                 {
                     var localDirectories = Directory.GetDirectories(dir);
 
