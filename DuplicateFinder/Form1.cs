@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
@@ -131,33 +132,47 @@ namespace DuplicateFinder
             webBrowser1.Navigate("about:blank");
         }
 
+        private void RemoveItemFromTree(TreeView treeView)
+        {
+            TreeNode parentNode = treeView.SelectedNode.Parent;
+
+            treeView.SelectedNode.Remove();
+
+            if (parentNode.Nodes.Count < 2)
+            {
+                parentNode.Remove();
+            }
+        }
+
         private void DeleteSelection(TreeView treeView)
         {
             if (treeView.SelectedNode.Text.Contains("."))
             {
-                if (MessageBox.Show("Are You Sure?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                if (File.Exists(treeView.SelectedNode.Text))
                 {
-                    ResetPreviewWindows();
-
-                    RecycleOption recycleOption = RecycleOption.SendToRecycleBin;
-
-                    if (!chkBxRecycle.Checked)
+                    if (MessageBox.Show("Are You Sure?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     {
-                        recycleOption = RecycleOption.DeletePermanently;
+                        ResetPreviewWindows();
+
+                        RecycleOption recycleOption = RecycleOption.SendToRecycleBin;
+
+                        if (!chkBxRecycle.Checked)
+                        {
+                            recycleOption = RecycleOption.DeletePermanently;
+                        }
+
+                        FileSystem.DeleteFile(treeView.SelectedNode.Text, UIOption.OnlyErrorDialogs, recycleOption);
+
+                        RemoveItemFromTree(treeView);
+
+                        UpdateNumberOfNonUniqueHashes();
                     }
+                }
+                else
+                {
+                    // if the file no longer exists on the file system, remove it from the tree view
 
-                    FileSystem.DeleteFile(treeView.SelectedNode.Text, UIOption.OnlyErrorDialogs, recycleOption);
-
-                    TreeNode parentNode = treeView.SelectedNode.Parent;
-
-                    treeView.SelectedNode.Remove();
-
-                    if (parentNode.Nodes.Count < 2)
-                    {
-                        parentNode.Remove();
-                    }
-
-                    UpdateNumberOfNonUniqueHashes();
+                    RemoveItemFromTree(treeView);
                 }
             }
             else
@@ -245,7 +260,11 @@ namespace DuplicateFinder
                 // Look for a file extension.
                 if (e.Node.Text.Contains("."))
                 {
-                    System.Diagnostics.Process.Start(e.Node.Text);
+                    // make sure the file exists
+                    if (File.Exists(e.Node.Text))
+                    {
+                        System.Diagnostics.Process.Start(e.Node.Text);
+                    }
                 }
             }
             // If the file is not found, handle the exception and inform the user.
@@ -294,7 +313,7 @@ namespace DuplicateFinder
 
             if (e.Node.IsSelected) // sanity test
             {
-                if (e.Node.Text.Contains("."))
+                if (e.Node.Text.Contains(".") && File.Exists(e.Node.Text))
                 {
                     btnDelete.Enabled = true;
                 }
@@ -303,20 +322,23 @@ namespace DuplicateFinder
                     btnDelete.Enabled = false;
                 }
 
-                if (pictureBoxFileExtensions.Any(extension => e.Node.Text.EndsWith(extension, StringComparison.OrdinalIgnoreCase)))
+                if (File.Exists(e.Node.Text)) // make sure the file still exists in the filesystem
                 {
-                    pictureBox1.Visible = true;
-                    pictureBox1.ImageLocation = e.Node.Text;
-                }
-                else if (mediaPlayerFileExtensions.Any(extension => e.Node.Text.EndsWith(extension, StringComparison.OrdinalIgnoreCase)))
-                {
-                    axWindowsMediaPlayer1.Visible = true;
-                    axWindowsMediaPlayer1.URL = e.Node.Text;
-                }
-                else if (browserFileExtensions.Any(extension => e.Node.Text.EndsWith(extension, StringComparison.OrdinalIgnoreCase)))
-                {
-                    webBrowser1.Visible = true;
-                    webBrowser1.Navigate(e.Node.Text);
+                    if (pictureBoxFileExtensions.Any(extension => e.Node.Text.EndsWith(extension, StringComparison.OrdinalIgnoreCase)))
+                    {
+                        pictureBox1.Visible = true;
+                        pictureBox1.ImageLocation = e.Node.Text;
+                    }
+                    else if (mediaPlayerFileExtensions.Any(extension => e.Node.Text.EndsWith(extension, StringComparison.OrdinalIgnoreCase)))
+                    {
+                        axWindowsMediaPlayer1.Visible = true;
+                        axWindowsMediaPlayer1.URL = e.Node.Text;
+                    }
+                    else if (browserFileExtensions.Any(extension => e.Node.Text.EndsWith(extension, StringComparison.OrdinalIgnoreCase)))
+                    {
+                        webBrowser1.Visible = true;
+                        webBrowser1.Navigate(e.Node.Text);
+                    }
                 }
             }
         }
